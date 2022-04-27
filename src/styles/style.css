@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}
+
+div {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
