@@ -22,6 +22,7 @@ const appendImage = async () => {
     <img src='${fetchedPhoto}' alt=''>
     </div>`
     console.log(currentIndexOfPhoto)
+    currentIndexOfPhoto++
 }
 
 appendImage();
