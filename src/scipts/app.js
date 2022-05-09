@@ -1,8 +1,8 @@
 const count = 30;
 let currentIndexOfPhoto;
-currentIndexOfPhoto = currentIndexOfPhoto > (count-1) ? 0 : currentIndexOfPhoto | 0;
 
 const fetchPhoto = () => {
+    currentIndexOfPhoto = currentIndexOfPhoto > (count-1) ? 0 : currentIndexOfPhoto | 0;
     const accessKey = "7cPuL107zET0W4NHHH-L3aMkLjS43b4B4vgVOIpKjjg";
     const collections = 1270951
     const fetchedData = fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}&collections=${collections}`).then(response => {
