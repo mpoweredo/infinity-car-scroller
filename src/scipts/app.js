@@ -1,34 +1,47 @@
+import { EasyModal } from "../../node_modules/easy-modal-js/dist/scripts/easyModal.js";
+
+const accessKey = "7cPuL107zET0W4NHHH-L3aMkLjS43b4B4vgVOIpKjjg";
+const collections = 1270951
 const count = 30;
 let currentIndexOfPhoto;
+let photos;
 
-const fetchPhoto = () => {
-    currentIndexOfPhoto = currentIndexOfPhoto > (count-1) ? 0 : currentIndexOfPhoto | 0;
-    const accessKey = "7cPuL107zET0W4NHHH-L3aMkLjS43b4B4vgVOIpKjjg";
-    const collections = 1270951
-    const fetchedData = fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}&collections=${collections}`).then(response => {
-    return response.json()
-}).then(response => {
-    console.log(response[currentIndexOfPhoto])
-    return response[currentIndexOfPhoto].urls.regular
-})
-    return fetchedData;
+const fetchPhotos = async () => {
+    try {
+        const fetchedData = await fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}&collections=${collections}`).then(response => {
+            return response.json()
+        }).then(response => {
+            return response
+        })
+            return fetchedData
+    } catch (error) {
+        new EasyModal({title: 'An error occured!', description: 'Check your network connection!'})
+    }
+
 }
+
 
 
 const appendImage = async () => {
-    const fetchedPhoto = await fetchPhoto();
+    currentIndexOfPhoto = currentIndexOfPhoto >= (count-1) ? 0 : currentIndexOfPhoto | 0;
     document.body.innerHTML += `
-    <div>
-    <img src='${fetchedPhoto}' alt=''>
+    <div class="photo">
+    <img src='${photos[currentIndexOfPhoto].urls.regular}' alt=''>
     </div>`
-    console.log(currentIndexOfPhoto)
     currentIndexOfPhoto++
 }
 
-appendImage();
 
 document.onscroll = ev => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    if ((window.innerHeight + window.scrollY + 300) >= document.body.offsetHeight) {
         appendImage();
     }
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+        if (!photos) {
+                photos = await fetchPhotos();   
+        }
+
+    appendImage();
+})

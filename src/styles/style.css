@@ -10,7 +10,7 @@ img {
     object-fit: cover;
 }
 
-div {
+.photo {
     height: 100vh;
     display: flex;
     align-items: center;
